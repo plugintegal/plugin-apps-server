@@ -8,6 +8,11 @@ use App\User;
 
 class UserController extends Controller
 {
+    public function index(){
+      return response()->json([
+        'message' => "success"
+      ]);
+    }
     public function register(Request $request){
       $rule = [
         'name' => 'required',
