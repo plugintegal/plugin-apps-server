@@ -2,5 +2,5 @@
 
 use Illuminate\Http\Request;
 
-Route::post('register','API\UserController@register');
-Route::get('test','API\UserController@index');
+Route::post('register','User\AuthUserController@register');
+Route::get('test','User\AuthUserController@index');
