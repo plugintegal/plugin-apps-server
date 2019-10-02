@@ -26,9 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
       Schema::defaultStringLength(191);
-      config(['app.locale' => 'id']);
-      setLocale(LC_ALL, 'id_ID');
-      Carbon::setLocale('id_ID');
+      config(['app.locale' => 'id_ID.UTF-8']);
+      setLocale(LC_ALL, 'id_ID.UTF-8');
+      Carbon::setLocale('id_ID.UTF-8');
       date_default_timezone_set('Asia/Jakarta');
         // if(config('app.env') === 'production') {
         //     \URL::forceScheme('https');
