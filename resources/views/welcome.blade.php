@@ -81,7 +81,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Plugin Home Server
+                    Plugin App Server
                 </div>
             </div>
         </div>

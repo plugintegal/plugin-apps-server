@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Support\Carbon;
+use Auth;
 
 class AuthUserController extends Controller
 {
@@ -31,6 +32,7 @@ class AuthUserController extends Controller
       $rule = [
         'name' => 'required',
         'email' => 'required|email|unique:users',
+        'password' => 'required|min:6'
       ];
       $message = [
         'required' => 'isi bidang ini.',
@@ -56,7 +58,38 @@ class AuthUserController extends Controller
         'role' => $request->role
       ]);
       return response()->json([
-        'tanggal' => $user
-      ]);
+        'message' => 'success',
+        'status' => true,
+        'data' => $user
+      ], 201);
+    }
+
+    public function login(Request $request){
+      $rule = [
+        'member_id' => 'required|max:10|min:10',
+        'password' => 'required|min:6'
+      ];
+      $message = [
+        'required' => 'isi bidang ini.',
+      ];
+      $this->validate($request, $rule, $message);
+
+      $credential = [
+        'member_id' => $request->member_id,
+        'password' => $request->password
+      ];
+
+      if(!Auth::attempt($credential, $request->member)){
+        return response()->json([
+            'message' => 'login failed',
+            'status' => false
+        ], 401);
+      }
+      $user = User::find(Auth::user()->member_id);
+      return response()->json([
+        'message' => 'login success',
+        'status' => true,
+        'data' => $user
+      ], 201);
     }
 }
