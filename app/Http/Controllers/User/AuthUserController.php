@@ -5,29 +5,10 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
-use Illuminate\Support\Carbon;
 use Auth;
 
 class AuthUserController extends Controller
 {
-    public function index(){
-      $data = [
-        [
-          "name" => "royhan",
-          "address" => "Tegal"
-        ],[
-          "name" => "delut",
-          "address" => "Tegal"
-        ],[
-          "name" => "fadzlan",
-          "address" => "Adiwerna"
-        ]
-      ];
-      return response()->json([
-        'message' => "success",
-        'users' => $data
-      ]);
-    }
     public function register(Request $request){
       $rule = [
         'name' => 'required',
@@ -40,7 +21,6 @@ class AuthUserController extends Controller
         'unique' => ':attribute sudah terdaftar'
       ];
       $this->validate($request, $rule, $message);
-      // $year = Carbon::parse(now())->formatLocalized('%A, %d %B %Y %H:%I:%S');
       $user = User::orderBy('member_id','DESC')->first();
       $userID = 1;
       if($user != null){
@@ -59,8 +39,7 @@ class AuthUserController extends Controller
       ]);
       return response()->json([
         'message' => 'success',
-        'status' => true,
-        'data' => $user
+        'status' => true
       ], 201);
     }
 
@@ -89,7 +68,7 @@ class AuthUserController extends Controller
       return response()->json([
         'message' => 'login success',
         'status' => true,
-        'data' => $user
+        'user' => $user
       ], 201);
     }
 }
