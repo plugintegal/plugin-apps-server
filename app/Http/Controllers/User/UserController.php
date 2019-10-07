@@ -28,7 +28,7 @@ class UserController extends Controller
       return response()->json([
         'message' => 'success',
         'status' => true,
-        'users' => $result
+        'results' => $result
       ], 200);
     }
 
@@ -48,7 +48,7 @@ class UserController extends Controller
       return response()->json([
         'message' => 'success',
         'status' => true,
-        'user' => $data
+        'results' => $data
       ], 200);
     }
 }

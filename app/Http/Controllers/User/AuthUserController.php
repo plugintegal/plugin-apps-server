@@ -79,7 +79,7 @@ class AuthUserController extends Controller
       return response()->json([
         'message' => 'login success',
         'status' => true,
-        'user' => $user
+        'results' => $user
       ], 201);
     }
 }
