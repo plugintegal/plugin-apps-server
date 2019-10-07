@@ -5,15 +5,16 @@ namespace App\Http\Controllers\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
+use App\Personal;
 use Auth;
 
 class AuthUserController extends Controller
 {
     public function register(Request $request){
+      // validasi
       $rule = [
         'name' => 'required',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:6'
+        'email' => 'required|email|unique:users'
       ];
       $message = [
         'required' => 'isi bidang ini.',
@@ -21,25 +22,36 @@ class AuthUserController extends Controller
         'unique' => ':attribute sudah terdaftar'
       ];
       $this->validate($request, $rule, $message);
+
       $user = User::orderBy('member_id','DESC')->first();
       $userID = 1;
+      $year = 20;
       if($user != null){
-        $userID = substr($user->member_id,6)+1;
+          $userYear = substr($user->member_id,4,2);
+        if($year > $userYear){
+          $userID = 1;
+        }else{
+          $userID = substr($user->member_id,6)+1;
+        }
       }
-      $year = substr(now()->format('Y'),2);
+
       $id = str_pad(0000+$userID, 4, 0, STR_PAD_LEFT);
       $member_id = "PLGN".$year.$id;
-      $user = User::create([
+      User::create([
         'member_id' => $member_id,
         'name' => $request->name,
         'email' => $request->email,
-        'password' => bcrypt($request->password),
+        'password' => bcrypt($member_id),
         'api_token' => bcrypt($request->email),
         'role' => $request->role
       ]);
+      Personal::create([
+        'user_id' => $member_id
+      ]);
       return response()->json([
         'message' => 'success',
-        'status' => true
+        'status' => true,
+        'data' => $member_id
       ], 201);
     }
 

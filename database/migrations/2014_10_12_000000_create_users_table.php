@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('api_token', 100);
             $table->enum('role',['admin','anggota','bendahara']);
             $table->string('avatar')->default('avatar/default.png');
-            $table->rememberToken();
+            $table->boolean('status')->default(true);
             $table->timestamps();
         });
     }
