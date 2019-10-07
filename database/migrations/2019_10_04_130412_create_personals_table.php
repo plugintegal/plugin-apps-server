@@ -26,7 +26,7 @@ class CreatePersonalsTable extends Migration
             $table->char('semester',1)->nullable();
             $table->char('class', 2)->nullable();
             $table->text('description')->nullable();
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->timezone('Asia/Jakarta')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
 
             $table->foreign('user_id')->references('member_id')->on('users')->onDelete('CASCADE');
         });
