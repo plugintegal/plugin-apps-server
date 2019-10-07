@@ -26,7 +26,7 @@ class CreatePersonalsTable extends Migration
             $table->char('semester',1)->nullable();
             $table->char('class', 2)->nullable();
             $table->text('description')->nullable();
-            $table->timestamp('updated_at');
+            $table->timestamp('updated_at')->nullable();
 
             $table->foreign('user_id')->references('member_id')->on('users')->onDelete('CASCADE');
         });
