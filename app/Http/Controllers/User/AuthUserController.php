@@ -41,7 +41,7 @@ class AuthUserController extends Controller
         'member_id' => $member_id,
         'name' => $request->name,
         'email' => $request->email,
-        'password' => bcrypt($request->password),
+        'password' => bcrypt($member_id),
         'api_token' => bcrypt($request->email),
         'role' => $request->role
       ]);
