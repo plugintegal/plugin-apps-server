@@ -25,7 +25,7 @@ class AuthUserController extends Controller
 
       $user = User::orderBy('member_id','DESC')->first();
       $userID = 1;
-      $year = 20;
+      $year = substr(now()->format('Y'), 2);
       if($user != null){
           $userYear = substr($user->member_id,4,2);
         if($year > $userYear){
@@ -41,7 +41,7 @@ class AuthUserController extends Controller
         'member_id' => $member_id,
         'name' => $request->name,
         'email' => $request->email,
-        'password' => bcrypt($member_id),
+        'password' => bcrypt($request->password),
         'api_token' => bcrypt($request->email),
         'role' => $request->role
       ]);
@@ -50,8 +50,7 @@ class AuthUserController extends Controller
       ]);
       return response()->json([
         'message' => 'success',
-        'status' => true,
-        'data' => $member_id
+        'status' => true
       ], 201);
     }
 
