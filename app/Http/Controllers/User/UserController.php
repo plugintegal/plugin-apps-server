@@ -32,7 +32,7 @@ class UserController extends Controller
       ], 200);
     }
 
-    public function show(){
+    public function profile(){
       $user = User::find(Auth::user()->member_id);
       $data = [
         'member_id' => $user->member_id,
@@ -49,6 +49,29 @@ class UserController extends Controller
         'message' => 'success',
         'status' => true,
         'results' => $data
+      ], 200);
+    }
+
+    public function show($member_id){
+      $user = User::where('member_id', $member_id)->first();
+      $data = [];
+      if($user != null){
+        $data = [
+          'member_id' => $user->member_id,
+          'name' => $user->name,
+          'email' => $user->email,
+          'role' => $user->role,
+          'created_at' => Carbon::parse($user->created_at)->formatLocalized('%A, %d %B %Y'),
+          'updated_at' => Carbon::parse($user->updated_at)->formatLocalized('%A, %d %B %Y'),
+          'personal' => $user->personal,
+          'colaborations' => [],
+          'achievement' => []
+        ];
+      }
+      return response()->json([
+        'message' => 'success',
+        'status' => true,
+        'results' => $user
       ], 200);
     }
 }
