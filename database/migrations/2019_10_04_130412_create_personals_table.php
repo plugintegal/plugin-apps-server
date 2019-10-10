@@ -23,7 +23,6 @@ class CreatePersonalsTable extends Migration
             $table->char('nim', 8)->unique()->nullable();
             $table->string('telegram', 20)->unique()->nullable();
             $table->string('github', 30)->unique()->nullable();
-            $table->char('semester',1)->nullable();
             $table->char('class', 2)->nullable();
             $table->text('description')->nullable();
             $table->timestamp('updated_at')->default(null)->nullable();
