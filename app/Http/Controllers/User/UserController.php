@@ -20,7 +20,6 @@ class UserController extends Controller
           'email' => $user->email,
           'role' => $user->role,
           'avatar' => $user->avatar,
-          'status' => $user->status == true ? 'Aktif' : 'Nonaktif',
           // 'created_at' => Carbon::parse($user->created_at)->formatLocalized('%A, %d %B %Y'),
           // 'updated_at' => Carbon::parse($user->updated_at)->formatLocalized('%A, %d %B %Y')
         ];
@@ -61,6 +60,7 @@ class UserController extends Controller
           'name' => $user->name,
           'email' => $user->email,
           'role' => $user->role,
+          'status' => $user->status == true ? 'Aktif' : 'Nonaktif',
           'created_at' => Carbon::parse($user->created_at)->formatLocalized('%A, %d %B %Y'),
           'updated_at' => Carbon::parse($user->updated_at)->formatLocalized('%A, %d %B %Y'),
           'personal' => $user->personal,
@@ -71,7 +71,11 @@ class UserController extends Controller
       return response()->json([
         'message' => 'success',
         'status' => true,
-        'results' => $user
+        'results' => $data
       ], 200);
     }
+
+    // public function update(){
+    //   $user = User::find(Auth::user()->member_id);
+    // }
 }
