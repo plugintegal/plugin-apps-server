@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 class UserController extends Controller
 {
     public function index(){
-      $users = User::orderBy('id','DESC')->get();
+      $users = User::orderBy('member_id','DESC')->get();
       $result = [];
       foreach ($users as $user) {
         $result[] = [
