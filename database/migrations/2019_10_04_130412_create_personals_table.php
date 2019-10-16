@@ -24,7 +24,7 @@ class CreatePersonalsTable extends Migration
             $table->string('telegram', 20)->unique()->nullable();
             $table->string('github', 30)->unique()->nullable();
             $table->char('class', 2)->nullable();
-            $table->text('description')->nullable();
+            $table->text('bio')->nullable();
             $table->timestamp('updated_at')->default(null)->nullable();
 
             $table->foreign('user_id')->references('member_id')->on('users')->onDelete('CASCADE');

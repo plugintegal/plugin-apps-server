@@ -11,7 +11,7 @@ use Illuminate\Support\Carbon;
 class UserController extends Controller
 {
     public function index(){
-      $users = User::all();
+      $users = User::orderBy('id','DESC')->get();
       $result = [];
       foreach ($users as $user) {
         $result[] = [
@@ -19,9 +19,7 @@ class UserController extends Controller
           'name' => $user->name,
           'email' => $user->email,
           'role' => $user->role,
-          'avatar' => $user->avatar,
-          // 'created_at' => Carbon::parse($user->created_at)->formatLocalized('%A, %d %B %Y'),
-          // 'updated_at' => Carbon::parse($user->updated_at)->formatLocalized('%A, %d %B %Y')
+          'avatar' => $user->avatar
         ];
       }
       return response()->json([
@@ -38,6 +36,7 @@ class UserController extends Controller
         'name' => $user->name,
         'email' => $user->email,
         'role' => $user->role,
+        'status' => $user->status == true ? 'Aktif' : 'Nonaktif',
         'created_at' => Carbon::parse($user->created_at)->formatLocalized('%A, %d %B %Y'),
         'updated_at' => Carbon::parse($user->updated_at)->formatLocalized('%A, %d %B %Y'),
         'personal' => $user->personal,
@@ -74,8 +73,4 @@ class UserController extends Controller
         'results' => $data
       ], 200);
     }
-
-    // public function update(){
-    //   $user = User::find(Auth::user()->member_id);
-    // }
 }
