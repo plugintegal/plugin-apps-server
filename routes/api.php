@@ -13,3 +13,7 @@ Route::put('user/profile', 'User\PersonalController@updatePersonal')->middleware
 Route::get('test','User\AuthUserController@index');
 
 Route::post('admin/login','Admin\AuthAdminController@login');
+
+//Event
+Route::get('event','Event\EventsController@index');
+Route::post('event','Event\EventsController@create');
