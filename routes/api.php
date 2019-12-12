@@ -15,5 +15,5 @@ Route::get('test','User\AuthUserController@index');
 Route::post('admin/login','Admin\AuthAdminController@login');
 
 //Event
-Route::get('event','Event\EventsController@index');
-Route::post('event','Event\EventsController@create');
+Route::get('event','Event\EventController@index');
+Route::post('event','Event\EventController@store');
