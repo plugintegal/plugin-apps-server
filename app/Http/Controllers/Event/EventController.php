@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Event;
 use App\CategoryEvent;
 use App\SubCategoryEvent;
+use Storage;
 
 class EventController extends Controller
 {
@@ -37,15 +38,21 @@ class EventController extends Controller
     }
 
     public function store(Request $request){
+      // $rule = [
+      //   'title' => 'required',
+      //   'image' => 'required|mimes:jpeg,jpg,png|max:2048',
+      //   'category' => 'required'
+      // ];
+      // $message = [
+      //   'required' => 'isi bidang ini.',
+      // ];
+      // $this->validate($request, $rule, $message);
 
       $event = Event::create([
         "title" => $request->title
       ]);
 
-      $categories = $request->category;
-      $categories = array_map(function($array){
-        return (object)$array;
-      },$categories);
+      $categories = json_decode($request->category);
       foreach ($categories as $category) {
         $cat = CategoryEvent::create([
           "event_id" => $event->id,
@@ -53,23 +60,25 @@ class EventController extends Controller
           "price" => $category->price
         ]);
         $subCategories = $category->sub_category;
-        $subCategories = array_map(function($array){
-          return (object)$array;
-        },$subCategories);
         if($subCategories > 0){
           foreach ($subCategories as $subCategory) {
             SubCategoryEvent::create([
               "category_event_id" => $cat->id,
-              "sub_category_name" => $subCategory->sub_category_name
+              "sub_category_name" => $subCategory->sub_category_name,
+              // "quota" => $subCategory->quota
             ]);
           }
         }
       }
 
+      // $results = [
+      //   "image" => $request->image,
+      // ];
+      // $image = $request->file("image");
       return response()->json([
         "message" => "success",
-        "status" => true
-        //dd(count($subCat))
+        "status" => true,
+
       ]);
     }
 }

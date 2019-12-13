@@ -13,6 +13,12 @@ Route::put('user/profile', 'User\PersonalController@updatePersonal')->middleware
 Route::get('test','User\AuthUserController@index');
 
 Route::post('admin/login','Admin\AuthAdminController@login');
+Route::get('category','Admin\CategoryController@index');
+Route::post('category','Admin\CategoryController@store');
+Route::put('category/{category}','Admin\CategoryController@update');
+Route::delete('category/{category}','Admin\CategoryController@destroy');
+
+
 
 //Event
 Route::get('event','Event\EventController@index');

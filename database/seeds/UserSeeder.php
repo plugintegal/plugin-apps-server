@@ -20,5 +20,14 @@ class UserSeeder extends Seeder
           'api_token' => bcrypt("royhan@gmail.com"),
           'role' => "admin"
         ]);
+
+        User::create([
+          'member_id' => "PLGN190002",
+          'name' => "Jamal",
+          'email' => "jamal@gmail.com",
+          'password' => bcrypt(12345678),
+          'api_token' => bcrypt("royhan@gmail.com"),
+          'role' => "anggota"
+        ]);
     }
 }

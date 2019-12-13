@@ -17,6 +17,7 @@ class CreateSubCategoryEventsTable extends Migration
           $table->bigIncrements('id');
           $table->bigInteger("category_event_id")->unsigned();
           $table->string("sub_category_name");
+          $table->integer("quota");
           $table->foreign("category_event_id")->references("id")->on("category_events")->onDelete("CASCADE");
       });
     }
