@@ -7,9 +7,14 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Auth;
 use Illuminate\Support\Carbon;
+use Storage;
 
 class UserController extends Controller
 {
+    public function __construct(){
+      $this->middleware('auth:api');
+    }
+
     public function index(){
       $users = User::orderBy('member_id','DESC')->get();
       $result = [];
@@ -75,4 +80,5 @@ class UserController extends Controller
         'results' => $data
       ], 200);
     }
+
 }
