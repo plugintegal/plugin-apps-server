@@ -10,6 +10,10 @@ use DateTime;
 
 class PersonalController extends Controller
 {
+  public function __construct(){
+    $this->middleware('auth:api');
+  }
+  
   public function updatePersonal(Request $request){
     $personal = Personal::find(Auth::user()->member_id);
     $user_id = $personal->user_id;

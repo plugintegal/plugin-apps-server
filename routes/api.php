@@ -6,8 +6,8 @@ Route::post('register','User\AuthUserController@register');
 Route::post('login','User\AuthUserController@login');
 Route::get('user/{member_id}','User\UserController@show');
 Route::get('users','User\UserController@index');
-Route::get('user/profile','User\UserController@profile')->middleware('auth:api');
-Route::put('user/profile', 'User\PersonalController@updatePersonal')->middleware('auth:api');
+Route::get('user/data/profile','User\UserController@profile');
+Route::put('user/data/profile', 'User\PersonalController@updatePersonal');
 
 
 Route::get('test','User\AuthUserController@index');
