@@ -73,7 +73,7 @@ class AuthUserController extends Controller
         return response()->json([
             'message' => 'login failed',
             'status' => false
-        ], 401);
+        ], 404);
       }
       $user = User::find(Auth::user()->member_id);
       return response()->json([
