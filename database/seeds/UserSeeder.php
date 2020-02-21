@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Personal;
 
 class UserSeeder extends Seeder
 {
@@ -16,18 +17,11 @@ class UserSeeder extends Seeder
           'member_id' => "PLGN190001",
           'name' => "Izzatur Royhan",
           'email' => "royhan@gmail.com",
-          'password' => bcrypt(12345678),
+          'password' => bcrypt("PLGN190001"),
           'api_token' => bcrypt("royhan@gmail.com"),
           'role' => "admin"
         ]);
 
-        User::create([
-          'member_id' => "PLGN190002",
-          'name' => "Jamal",
-          'email' => "jamal@gmail.com",
-          'password' => bcrypt(12345678),
-          'api_token' => bcrypt("royhan@gmail.com"),
-          'role' => "anggota"
-        ]);
+        Personal::create(['user_id' => "PLGN190001"]);
     }
 }

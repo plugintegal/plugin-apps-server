@@ -48,37 +48,46 @@ class EventController extends Controller
       // ];
       // $this->validate($request, $rule, $message);
 
-      $event = Event::create([
-        "title" => $request->title
-      ]);
-
-      $categories = json_decode($request->category);
-      foreach ($categories as $category) {
-        $cat = CategoryEvent::create([
-          "event_id" => $event->id,
-          "category_id" => $category->category_id,
-          "price" => $category->price
-        ]);
-        $subCategories = $category->sub_category;
-        if($subCategories > 0){
-          foreach ($subCategories as $subCategory) {
-            SubCategoryEvent::create([
-              "category_event_id" => $cat->id,
-              "sub_category_name" => $subCategory->sub_category_name,
-              // "quota" => $subCategory->quota
-            ]);
-          }
-        }
-      }
-
-      // $results = [
-      //   "image" => $request->image,
-      // ];
-      // $image = $request->file("image");
       return response()->json([
-        "message" => "success",
-        "status" => true,
-
+        'results' => $request->all()
       ]);
+
+      // $image = $request->file('image')->store('event');
+      // $event = Event::create([
+      //   'title' => $request->title,
+      //   'image' => $image,
+      //   'opened' => $request->opened,
+      //   'closed' => $request->closed,
+      //   'description' => $request->description
+      // ]);
+      //
+      // $categories = json_decode($request->category);
+      // foreach ($categories as $category) {
+      //   $cat = CategoryEvent::create([
+      //     "event_id" => $event->id,
+      //     "category_id" => $category->category_id,
+      //     "price" => $category->price
+      //   ]);
+      //   $subCategories = $category->sub_category;
+      //   if($subCategories > 0){
+      //     foreach ($subCategories as $subCategory) {
+      //       SubCategoryEvent::create([
+      //         "category_event_id" => $cat->id,
+      //         "sub_category_name" => $subCategory->sub_category_name,
+      //         "quota" => $subCategory->quota
+      //       ]);
+      //     }
+      //   }
+      // }
+      //
+      // // $results = [
+      // //   "image" => $request->image,
+      // // ];
+      // // $image = $request->file("image");
+      // return response()->json([
+      //   "message" => "success",
+      //   "status" => true,
+      //
+      // ]);
     }
 }
