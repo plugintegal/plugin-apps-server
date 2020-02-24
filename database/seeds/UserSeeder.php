@@ -22,6 +22,6 @@ class UserSeeder extends Seeder
           'role' => "admin"
         ]);
 
-        Personal::create(['user_id' => "PLGN190001"]);
+        Personal::create(['user_id' => "PLGN200001"]);
     }
 }
