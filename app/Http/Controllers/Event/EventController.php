@@ -19,13 +19,18 @@ class EventController extends Controller
         foreach ($event->categories as $categoryEvent) {
           $categories[] = [
             "name" => $categoryEvent->category->name,
-            "price" => "Rp. ".number_format($categoryEvent->price,0,',','.'),
+            "price" => $categoryEvent->price,
             "sub_category" => $categoryEvent->subCategories
           ];
         }
 
         $results[] = [
+          "id" => $event->id,
           "title" => $event->title,
+          "opened" => $event->opened,
+          "closed" => $event->closed,
+          "description" => $event->description,
+          "image" => $event->image,
           "category" => $categories,
           "created_at" => $event->created_at->diffForHumans()
         ];
@@ -38,56 +43,47 @@ class EventController extends Controller
     }
 
     public function store(Request $request){
-      // $rule = [
-      //   'title' => 'required',
-      //   'image' => 'required|mimes:jpeg,jpg,png|max:2048',
-      //   'category' => 'required'
-      // ];
-      // $message = [
-      //   'required' => 'isi bidang ini.',
-      // ];
-      // $this->validate($request, $rule, $message);
+      $rule = [
+        'title' => 'required',
+        'image' => 'required|mimes:jpeg,jpg,png|max:2048',
+        'category' => 'required'
+      ];
+      $message = [
+        'required' => 'isi bidang ini.',
+      ];
+      $this->validate($request, $rule, $message);
 
-      return response()->json([
-        'results' => $request->all()
+      $image = $request->file('image')->store('event');
+      $event = Event::create([
+        'title' => $request->title,
+        'image' => $image,
+        'opened' => $request->opened,
+        'closed' => $request->closed,
+        'description' => $request->description
       ]);
 
-      // $image = $request->file('image')->store('event');
-      // $event = Event::create([
-      //   'title' => $request->title,
-      //   'image' => $image,
-      //   'opened' => $request->opened,
-      //   'closed' => $request->closed,
-      //   'description' => $request->description
-      // ]);
-      //
-      // $categories = json_decode($request->category);
-      // foreach ($categories as $category) {
-      //   $cat = CategoryEvent::create([
-      //     "event_id" => $event->id,
-      //     "category_id" => $category->category_id,
-      //     "price" => $category->price
-      //   ]);
-      //   $subCategories = $category->sub_category;
-      //   if($subCategories > 0){
-      //     foreach ($subCategories as $subCategory) {
-      //       SubCategoryEvent::create([
-      //         "category_event_id" => $cat->id,
-      //         "sub_category_name" => $subCategory->sub_category_name,
-      //         "quota" => $subCategory->quota
-      //       ]);
-      //     }
-      //   }
-      // }
-      //
-      // // $results = [
-      // //   "image" => $request->image,
-      // // ];
-      // // $image = $request->file("image");
-      // return response()->json([
-      //   "message" => "success",
-      //   "status" => true,
-      //
-      // ]);
+      $categories = json_decode($request->category, true);
+
+      for ($i=0; $i < count($categories); $i++) {
+        $cat = CategoryEvent::create([
+            "event_id" => $event->id,
+            "category_id" => $categories[$i]['category_id'],
+            "price" => $categories[$i]['price']
+          ]);
+          $subCategory = $categories[$i]['sub_category'];
+
+          for ($j=0; $j < count($subCategory); $j++) {
+            SubCategoryEvent::create([
+              "category_event_id" => $cat->id,
+              "sub_category_name" => $subCategory[$j]['sub_category_name'],
+              "quota" => $subCategory[$j]['quota']
+            ]);
+          }
+      }
+      return response()->json([
+        "message" => "success",
+        "status" => true,
+        "results" => $event
+      ]);
     }
 }
