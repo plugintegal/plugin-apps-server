@@ -64,6 +64,7 @@
         </style>
     </head>
     <body>
+      <img src="https://ruko.s3.ap-southeast-1.amazonaws.com/rumahkomunitas.com/komunitas/md_1570020029_KAOSTERANG.png" alt="no_image">
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
