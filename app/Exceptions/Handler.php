@@ -53,25 +53,25 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-      if ($exception instanceof ValidationException && $request->expectsJson()) {
-        return response()->json([
-          'message' => 'failed',
-          'status' => false,
-          'errors' => $exception->validator->getMessageBag()
-        ], 422);
-      }
-      if ($exception instanceof HttpExceptionHandler) {
-        return response()->json(['status' => false,'message' => 'not found'], 404);
-      }
-      if ($exception instanceof ModelNotFoundException) {
-         return response()->json(['status' => false,'message' => "Not Found"], 404);
-       }
-      if ($exception instanceof NotFoundHttpException) {
-         return response()->json(['status' => false,'message' => "Not Found"], 404);
-       }
-       if ($exception instanceof AuthenticationException) {
-         return response()->json(['status' => false,'message' => 'Unauthenticated',], 401);
-       }
+      // if ($exception instanceof ValidationException && $request->expectsJson()) {
+      //   return response()->json([
+      //     'message' => 'failed',
+      //     'status' => false,
+      //     'errors' => $exception->validator->getMessageBag()
+      //   ], 422);
+      // }
+      // if ($exception instanceof HttpExceptionHandler) {
+      //   return response()->json(['status' => false,'message' => 'not found'], 404);
+      // }
+      // if ($exception instanceof ModelNotFoundException) {
+      //    return response()->json(['status' => false,'message' => "Not Found"], 404);
+      //  }
+      // if ($exception instanceof NotFoundHttpException) {
+      //    return response()->json(['status' => false,'message' => "Not Found"], 404);
+      //  }
+      //  if ($exception instanceof AuthenticationException) {
+      //    return response()->json(['status' => false,'message' => 'Unauthenticated',], 401);
+      //  }
        // return response()->json(['status' => false,'message' => 'Unauthenticated',], 401);
        return parent::render($request, $exception);
     }
