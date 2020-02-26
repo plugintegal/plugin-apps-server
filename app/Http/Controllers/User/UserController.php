@@ -81,4 +81,43 @@ class UserController extends Controller
       ], 200);
     }
 
+    public function update(Request $request){
+      $user = User::find(Auth::user()->member_id);
+      $rule = [
+        'name' => 'required',
+        'email' => "required|unique:users,email,$user->member_id,member_id",
+        'role' => 'required',
+        'image' => 'mimes:jpeg,jpg,png|max:2048',
+      ];
+      $message = [
+        'required' => 'isi bidang ini.',
+        'unique' => ':attribute sudah terdaftar',
+        'image.mimes' => 'Masukan gambar JPEG,JPG,PNG',
+        'image.uploaded' => 'Gambar maksimal 2MB',
+      ];
+      $this->validate($request, $rule, $message);
+      $avatar = $user->avatar;
+      if($request->avatar){
+        $avatar = $request->file('avatar')->store('avatar');
+        if (!$user->avatar === 'avatar/default.png') {
+          $avatar_path = $avatar;
+          if (Storage::exists($avatar_path)) {
+            Storage::delete($avatar_path);
+          }
+        }
+      }
+      $user->update([
+        'name' => $request->name,
+        'email' => $request->email,
+        'role' => $request->role,
+        'avatar' => $avatar,
+      ]);
+
+      return response()->json([
+        'message' => 'success',
+        'status' => true,
+      ], 200);
+
+    }
+
 }

@@ -7,7 +7,9 @@ Route::post('login','User\AuthUserController@login');
 Route::get('user/{member_id}','User\UserController@show');
 Route::get('users','User\UserController@index');
 Route::get('user/data/profile','User\UserController@profile');
-Route::patch('user/data/profile', 'User\PersonalController@updatePersonal');
+Route::post('user/data/profile','User\UserController@update');
+Route::post('user/data/personal', 'User\PersonalController@updatePersonal');
+
 
 
 Route::get('test','User\AuthUserController@index');

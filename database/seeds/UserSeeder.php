@@ -17,7 +17,7 @@ class UserSeeder extends Seeder
           'member_id' => "PLGN200001",
           'name' => "Izzatur Royhan",
           'email' => "royhan@gmail.com",
-          'password' => bcrypt("PLGN190001"),
+          'password' => bcrypt("PLGN200001"),
           'api_token' => bcrypt("royhan@gmail.com"),
           'role' => "admin"
         ]);
