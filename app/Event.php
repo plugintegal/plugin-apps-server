@@ -11,4 +11,6 @@ class Event extends Model
     public function categories(){
       return $this->hasMany(CategoryEvent::class, 'event_id', 'id');
     }
+
+    protected $hidden = ['description','created_at','updated_at'];
 }

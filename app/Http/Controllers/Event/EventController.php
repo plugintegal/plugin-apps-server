@@ -13,10 +13,24 @@ class EventController extends Controller
 {
     public function index(){
       $results = [];
-      $events = Event::all();
-      foreach ($events as $event) {
-        $categories = [];
-        foreach ($event->categories as $categoryEvent) {
+      $events = Event::orderBy('id')->get();
+      return response()->json([
+        "message" => "success",
+        "status" => true,
+        "results" => $events
+      ]);
+    }
+
+    public function show($id){
+      $event = Event::find($id);
+      if(!$event){
+        return response()->json([
+          "message" => "not found",
+          "status" => false,
+        ], 404);
+      }
+      $categories = [];
+      foreach ($event->categories as $categoryEvent) {
           $categories[] = [
             "name" => $categoryEvent->category->name,
             "price" => $categoryEvent->price,
@@ -24,17 +38,17 @@ class EventController extends Controller
           ];
         }
 
-        $results[] = [
-          "id" => $event->id,
-          "title" => $event->title,
-          "opened" => $event->opened,
-          "closed" => $event->closed,
-          "description" => $event->description,
-          "image" => $event->image,
-          "category" => $categories,
-          "created_at" => $event->created_at->diffForHumans()
-        ];
-      }
+      $results[] = [
+        "id" => $event->id,
+        "title" => $event->title,
+        "opened" => $event->opened,
+        "closed" => $event->closed,
+        "description" => $event->description,
+        "image" => $event->image,
+        "category" => $categories,
+        "created_at" => $event->created_at->diffForHumans()
+      ];
+
       return response()->json([
         "message" => "success",
         "status" => true,
@@ -85,4 +99,5 @@ class EventController extends Controller
         "status" => true
       ]);
     }
+
 }

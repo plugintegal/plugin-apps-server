@@ -24,4 +24,5 @@ Route::delete('category/{category}','Admin\CategoryController@destroy');
 
 //Event
 Route::get('event','Event\EventController@index');
+Route::get('event/{id}','Event\EventController@show');
 Route::post('event','Event\EventController@store');

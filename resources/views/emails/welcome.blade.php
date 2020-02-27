@@ -7,7 +7,7 @@
     ])
 
     @include('beautymail::templates.sunny.contentStart')
-        <img src="{!!$message->embedData(QrCode::format('png')->size(400)->errorCorrection('H')->generate($name), 'QrCode.png', 'image/png')!!}">
+        <img src="{!!$message->embedData(QrCode::format('png')->merge('/public/images/zerotwo.png', .3)->size(400)->errorCorrection('H')->generate($name), 'QrCode.png', 'image/png')!!}">
         <p>scan qr</p>
 
 
