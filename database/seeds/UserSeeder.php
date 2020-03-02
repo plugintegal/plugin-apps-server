@@ -3,6 +3,7 @@
 use Illuminate\Database\Seeder;
 use App\User;
 use App\Personal;
+use App\Category;
 
 class UserSeeder extends Seeder
 {
@@ -23,5 +24,9 @@ class UserSeeder extends Seeder
         ]);
 
         Personal::create(['user_id' => "PLGN200001"]);
+
+        Category::create(['name' => 'Workshop']);
+        Category::create(['name' => 'Seminar']);
+
     }
 }

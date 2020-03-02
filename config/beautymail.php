@@ -18,10 +18,10 @@ return [
     ],
 
     'view' => [
-        'senderName'  => null,
+        'senderName'  => 'PLUGIN',
         'reminder'    => null,
         'unsubscribe' => null,
-        'address'     => null,
+        'address'     => 'plugintegal@gmail.com',
 
         'logo'        => [
             'path'   => 'https://ruko.s3.ap-southeast-1.amazonaws.com/rumahkomunitas.com/komunitas/md_1570020029_KAOSTERANG.png',

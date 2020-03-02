@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration
             $table->date("opened");
             $table->date("closed");
             $table->text("description");
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }
