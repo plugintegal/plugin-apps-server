@@ -38,7 +38,7 @@ class EventController extends Controller
           ];
         }
 
-      $results[] = [
+      $results = (object) [
         "id" => $event->id,
         "title" => $event->title,
         "opened" => $event->opened,

@@ -38,8 +38,7 @@ class ParticipantController extends Controller
         ]);
       }
 
-      $dataParticipant = Participant::where('sub_category_event_id', $subCategory)
-      ->orderBy('id', 'DESC')->first();
+      $dataParticipant = Participant::where('event_id', $request->event_id)->orderBy('id', 'DESC')->first();
 
       $generate = "EV-PLGN";
       $id = $request->event_id+0001;
